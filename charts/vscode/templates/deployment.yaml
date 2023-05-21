@@ -54,6 +54,12 @@ spec:
           #     readOnly: true
           #   - name: data-bak
           #     mountPath: "/data/bak"
+          {{- if .Values.persistence.enabled }}
+          volumeMounts:
+            - name: storage-volume
+              mountPath: {{ .Values.persistence.mountPath }}
+              subPath: "{{ .Values.persistence.subPath }}"            
+          {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "vscode.fullname" . }}
