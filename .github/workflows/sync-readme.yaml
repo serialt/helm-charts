@@ -6,28 +6,24 @@ on:
       - 'main'
     paths:
       - 'README.md'
-
+permissions: {}
 jobs:
   build:
+    permissions:
+      contents: write # for git push
+
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-
+      - uses: actions/checkout@v2
       - run: |
           cp -f README.md ${{ runner.temp }}/README.md
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           ref: gh-pages
-
       - run: |
           cp -f ${{ runner.temp }}/README.md .
-          git config user.name "github-actions[bot]"
+          git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git add README.md
           git commit --signoff -m "Sync README from main"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.TOKEN }}
-          ref: gh-pages
+          git push

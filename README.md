@@ -11,7 +11,7 @@ helm repo add serialt https://serialt.github.io/helm-charts
 
 ## Example
 
-### update rpeo 
+### Update rpeo 
 ```shell
 [root@serialt ~]# helm repo update serialt
 Hang tight while we grab the latest from your chart repositories...
@@ -19,7 +19,7 @@ Hang tight while we grab the latest from your chart repositories...
 Update Complete. ⎈Happy Helming!⎈
 ```
 
-### search repo
+### Search repo
 ```shell
 [root@serialt ~]# helm repo list
 NAME    URL                                 
@@ -33,7 +33,7 @@ NAME            CHART VERSION   APP VERSION     DESCRIPTION
 serialt/test    0.1.0           1.16.0          A Helm chart for Kubernetes
 ```
 
-### install chart
+### Install chart
 
 ```shell
 [root@serialt ~]# helm install nginx-demo serialt/test --version=0.1.0
