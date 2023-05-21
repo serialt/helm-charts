@@ -13,6 +13,16 @@ entries:
     version: 0.1.2
   vscode:
   - apiVersion: v2
+    appVersion: 4.13.0
+    created: "2023-05-21T03:54:19.988400536Z"
+    description: A Helm chart of Code Server for Kubernetes
+    digest: 29ea78e973e67cf1d0cf1f4a11fc2a900a25ff886b636063c335d030b8766705
+    name: vscode
+    type: application
+    urls:
+    - https://github.com/serialt/helm-charts/releases/download/vscode-0.0.2/vscode-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 4.12.0
     created: "2023-05-21T02:54:11.541931728Z"
     description: A Helm chart of Code Server for Kubernetes
@@ -22,4 +32,4 @@ entries:
     urls:
     - https://github.com/serialt/helm-charts/releases/download/vscode-0.0.1/vscode-0.0.1.tgz
     version: 0.0.1
-generated: "2023-05-21T02:54:11.541937728Z"
+generated: "2023-05-21T03:54:19.988408637Z"
