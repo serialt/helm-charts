@@ -1,6 +1,4 @@
-# Helm Charts
-
-## Serialt Helm Charts
+# Serialt Helm Charts
 
 
 ## Usage
