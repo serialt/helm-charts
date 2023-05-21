@@ -13,7 +13,7 @@ helm repo add serialt https://serialt.github.io/helm-charts
 
 ### update rpeo 
 ```shell
-[serialt@Sugar ~]$ helm repo update serialt
+[root@serialt ~]# helm repo update serialt
 Hang tight while we grab the latest from your chart repositories...
 ...Successfully got an update from the "serialt" chart repository
 Update Complete. ⎈Happy Helming!⎈
