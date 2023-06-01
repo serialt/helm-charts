@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  metallb-config:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2023-06-01T10:11:10.510280944Z"
+    description: A chart to deploy metallb-config
+    digest: cab39837b8fbf63823e44e409215f2953e9f1b3540056354c9953c7662947f21
+    name: metallb-config
+    type: application
+    urls:
+    - https://github.com/serialt/helm-charts/releases/download/metallb-config-0.0.1/metallb-config-0.0.1.tgz
+    version: 0.0.1
   test:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -42,4 +53,4 @@ entries:
     urls:
     - https://github.com/serialt/helm-charts/releases/download/vscode-0.0.1/vscode-0.0.1.tgz
     version: 0.0.1
-generated: "2023-05-21T08:18:52.493694116Z"
+generated: "2023-06-01T10:11:10.510297344Z"
