@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nginx.fullname" . }}
+  labels:
+    {{- include "nginx.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "nginx.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "nginx.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "nginx.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.mirror }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.cmd }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port | default 80 }}
+              protocol: TCP
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            # - name: config
+            #   mountPath: "/etc/nginx/conf.d/app.conf"
+            #   subPath: app.conf
+            #   readOnly: true
+            - name: stream-config
+              mountPath: "/etc/nginx/stream_conf.d/"
+              readOnly: true
+            # - name: data-bak
+            #   mountPath: "/data/bak"
+            {{- if .Values.persistence.enabled }}
+            - name: storage-volume
+              mountPath: {{ .Values.persistence.mountPath }}
+              subPath: "{{ .Values.persistence.subPath }}"            
+            {{- end }}     
+            {{- if .Values.extraContainerVolumes.mounts }}
+            {{ tpl (toYaml .Values.extraContainerVolumes.mounts) . | indent 12 }}
+            {{- end }}
+          envFrom:
+            {{- if .Values.extraEnv }}
+            - configMapRef:
+                name: {{ include "nginx.fullname" . }}-envs
+            {{- end }}
+            {{- if .Values.extraEnv }}
+            - secretRef:
+                name: {{ include "nginx.fullname" . }}-envs
+            {{- end }}          
+      volumes:
+        # - name: config
+        #   configMap:
+        #     name: {{ include "nginx.fullname" . }}
+        #     items:
+        #       - key: "config.conf"
+        #         path: "config.conf"
+        - name: stream-config
+          configMap:
+            name: {{ include "nginx.fullname" . }}
+        {{- if .Values.extraContainerVolumes.volumes }}
+        {{ tpl (toYaml .Values.extraContainerVolumes.volumes) . | indent 8 }}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+---

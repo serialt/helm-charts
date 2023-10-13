@@ -1,0 +1,257 @@
+# Default values for nginx.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  mirror: docker.io/serialt
+  name: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "stream-alpine"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 3   # 初始延迟探测时间
+  periodSeconds: 10        # 探测周期，默认 5 秒
+  timeoutSeconds: 3        # 超时，默认 1 秒
+  failureThreshold: 3      # 当探测失败时的重试次数，默认值为 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 3   # 初始延迟探测时间
+  periodSeconds: 10        # 探测周期，默认 5 秒
+  timeoutSeconds: 3        # 超时，默认 1 秒
+  failureThreshold: 3      # 当探测失败时的重试次数，默认值为 3
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+# 指定运行节点
+nodeSelector: {}
+  # kubernetes.io/arch=amd64
+  # kubernetes.io/hostname: master-01
+
+# 允许在master节点上
+tolerations: []
+  # - effect: NoSchedule
+  #   key: node-role.kubernetes.io/master
+  #   operator: Exists
+  # - effect: NoSchedule
+  #   key: node-role.kubernetes.io/control-plane
+  #   operator: Exists
+
+
+# 参考文章: https://cloud.tencent.com/developer/article/1746649
+affinity: {}
+  # podAffinity:
+  #   # pod硬亲和
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #   - labelSelector:
+  #       # 由于是Pod亲和性/反亲和性；因此这里匹配规则写的是Pod的标签信息
+  #       matchExpressions:
+  #       - key: app
+  #         operator: In
+  #         values:
+  #         - myapp-web 
+  #     # 拓扑域  若多个node节点具有相同的标签信息【标签键值相同】，则表示这些node节点就在同一拓扑域
+  #     # 请对比如下两个不同的拓扑域，Pod的调度结果
+  #     #topologyKey: busi-use
+  #     topologyKey: disk-type
+  #   # pod软亲和
+  #   preferredDuringSchedulingIgnoredDuringExecution:
+  #   - weight: 100
+  #     podAffinityTerm:
+  #       labelSelector:
+  #         # 由于是Pod亲和性/反亲和性；因此这里匹配规则写的是Pod的标签信息
+  #         matchExpressions:
+  #         - key: version
+  #           operator: In
+  #           values:
+  #           - v1
+  #           - v2
+  #       # 拓扑域  若多个node节点具有相同的标签信息【标签键值相同】，则表示这些node节点就在同一拓扑域
+  #       topologyKey: disk-type
+  # nodeAffinity:
+  #   # node硬亲和
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #     nodeSelectorTerms:
+  #       # 表示node标签存在 cpu-num且值大于10
+  #     - matchExpressions:
+  #       - key: cpu-num
+  #         operator: Gt
+  #         values:
+  #         - "10"
+  #   # node软亲和
+  #   preferredDuringSchedulingIgnoredDuringExecution:
+  #   - weight: 1
+  #     preference:
+  #       matchExpressions:
+  #       # 表示node标签存在 disk-type=ssd 或 disk-type=sas
+  #       - key: disk-type
+  #         operator: In
+  #         values:
+  #         - ssd
+  #         - sas
+  #   - weight: 50
+  #     preference:
+  #       matchExpressions:
+  #       # 表示node标签存在 cpu-num且值大于16
+  #       - key: cpu-num
+  #         operator: Gt
+  #         values:
+  #         - "16"
+
+
+cmd: {}
+#   command: ["./server"]
+#   args: ["-c", "/app/config.yaml"]
+
+extraEnv: {}
+  # SERVER_PORT: 80
+  # APP_NAME: nginx
+
+extraSecret: {}
+  # app_token: xxxxxx
+  # app_secret: xxxxx 
+
+extraContainerVolumes:
+  mounts: {}
+    # - name: secret-files
+    #   mountPath: /etc/secrets
+    #   subPath: ""
+    #   secretName: alertmanager-secret-files
+    #   readOnly: true
+    # - name: template-files
+    #   mountPath: /etc/config/templates.d
+    #   configMap: alertmanager-template-files
+    #   readOnly: true
+    # - name: empty-dir-volume
+    #   emptyDir: {}
+  volumes: {}
+    # - name: config
+    #   configMap:
+    #     name: {{ include "nginx.fullname" .   
+    ## 挂载宿主机目录
+    # - name: data-bak
+    #   hostPath:
+    #     path: /data/bak
+
+persistence:
+  enabled: false
+  ## Must match those of existing PV or dynamic provisioner
+  ## Ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  accessModes:
+    - ReadWriteOnce
+  annotations: {}
+  finalizers: {}
+  selectorLabels: {}
+  ## Requires persistentVolume.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  storageClassName: ""
+  mountPath: /data
+  size: 2Gi
+  # storageClass: "-"
+  subPath: "" 
+
+virtualService: 
+  enabled: false
+  istioNamespace: 
+  istioGateways: []
+  domainNames: []
+
+serverBlock:
+pgPort:
+  - 5432
+  - 5435
+  - 5437
+  - 5438
+stremServerBlock: |-
+  stream-5432 {
+    upstream backend {
+        server 172.18.80.183:5432 max_fails=3 fail_timeout=30s;
+    }
+
+    server {
+        listen 5432;
+        proxy_connect_timeout 1s;
+        proxy_timeout 3s;
+        proxy_pass stream-5432;
+    }
+  }
+
+
+
+
+
+
+
+
+  
