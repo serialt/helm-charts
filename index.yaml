@@ -24,6 +24,16 @@ entries:
     version: 0.0.1
   mssql:
   - apiVersion: v2
+    appVersion: "2019"
+    created: "2024-03-25T02:41:35.581303128Z"
+    description: A Helm chart for Kubernetes
+    digest: cbb428150bc330213d3b8ece2b979919223781c61a4ee73a9f5e056f41736c48
+    name: mssql
+    type: application
+    urls:
+    - https://github.com/serialt/helm-charts/releases/download/mssql-0.1.1/mssql-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     appVersion: 0.1.0
     created: "2024-03-25T02:08:49.409835836Z"
     description: A Helm chart for Kubernetes
@@ -86,4 +96,4 @@ entries:
     urls:
     - https://github.com/serialt/helm-charts/releases/download/vscode-0.0.1/vscode-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-25T02:08:49.409850013Z"
+generated: "2024-03-25T02:41:35.581322695Z"
