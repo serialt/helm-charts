@@ -22,6 +22,17 @@ entries:
     urls:
     - https://github.com/serialt/helm-charts/releases/download/metallb-config-0.0.1/metallb-config-0.0.1.tgz
     version: 0.0.1
+  mssql:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-03-25T02:08:49.409835836Z"
+    description: A Helm chart for Kubernetes
+    digest: f22df27833a140ed798658c19ab083f930280c5be44994aacc63a4ae030bf879
+    name: mssql
+    type: application
+    urls:
+    - https://github.com/serialt/helm-charts/releases/download/mssql-0.1.0/mssql-0.1.0.tgz
+    version: 0.1.0
   nginx:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -75,4 +86,4 @@ entries:
     urls:
     - https://github.com/serialt/helm-charts/releases/download/vscode-0.0.1/vscode-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-09T07:48:23.62680877Z"
+generated: "2024-03-25T02:08:49.409850013Z"
