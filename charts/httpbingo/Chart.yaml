@@ -3,7 +3,7 @@ name: httpbingo
 description: A reasonably complete and well-tested golang port of httpbin, with zero dependencies outside the go stdlib.
 type: application
 version: 0.1.1
-appVersion: "v2.2.2"
+appVersion: "2.22.1"
 home: https://github.com/estahn/charts/tree/main/charts/httpbingo
 keywords:
   - httpbin
@@ -16,4 +16,4 @@ annotations:
     - "Update README.md"
   artifacthub.io/images: |
     - name: go-httpbin
-      image: mccutchen/go-httpbin:v2.2.2
+      image: mccutchen/go-httpbin:2.22.1
