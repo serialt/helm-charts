@@ -42,7 +42,7 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   annotations: {}
     # kubernetes.io/ingress.class: nginx
@@ -128,10 +128,10 @@ persistence:
   subPath: "" 
 
 virtualService:
-  enabled: false
-  istioNamespace: 
-  istioGateways: []
-  domainNames: []
+  enabled: true
+  istioNamespace: istio-system
+  istioGateways: ["istio-system/gateway-public"]
+  domainNames: [cxsf.s.flkj.pub]
 
 config:
   HASHED_PASSWORD: '$argon2i$v=19$m=4096,t=3,p=1$ndQZbJFPeeuSm8wbq8k8Mg$W1C5cXmuSoQD8f/vJQyujytoZEoG5DdJN1c8LUH9Ldo'
