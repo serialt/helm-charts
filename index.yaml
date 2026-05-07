@@ -11,6 +11,31 @@ entries:
     urls:
     - https://github.com/serialt/helm-charts/releases/download/cloudbeaver-0.1.0/cloudbeaver-0.1.0.tgz
     version: 0.1.0
+  httpbingo:
+  - annotations:
+      artifacthub.io/changes: |
+        - "Update README.md"
+      artifacthub.io/images: |
+        - name: go-httpbin
+          image: mccutchen/go-httpbin:2.22.1
+    apiVersion: v2
+    appVersion: 2.22.1
+    created: "2026-05-07T09:50:36.683910125Z"
+    description: A reasonably complete and well-tested golang port of httpbin, with
+      zero dependencies outside the go stdlib.
+    digest: ca72ac8adf5c791e8aafd9695ed479b44a4908ffd9c0fee3eaa754967f8b4832
+    home: https://github.com/estahn/charts/tree/main/charts/httpbingo
+    keywords:
+    - httpbin
+    - tests
+    maintainers:
+    - email: enrico.stahn@gmail.com
+      name: estahn
+    name: httpbingo
+    type: application
+    urls:
+    - https://github.com/serialt/helm-charts/releases/download/httpbingo-0.1.2/httpbingo-0.1.2.tgz
+    version: 0.1.2
   metallb-config:
   - apiVersion: v2
     appVersion: 0.0.1
@@ -96,4 +121,4 @@ entries:
     urls:
     - https://github.com/serialt/helm-charts/releases/download/vscode-0.0.1/vscode-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-25T02:41:35.581322695Z"
+generated: "2026-05-07T09:50:36.683923591Z"
