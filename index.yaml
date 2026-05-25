@@ -1,5 +1,27 @@
 apiVersion: v1
 entries:
+  caddy:
+  - annotations:
+      artifacthub.io/changes: |-
+        - kind: changed
+          description: Bumped version from 2.11.2 to 2.11.3
+      artifacthub.io/links: |
+        - name: Caddy home
+          url: https://github.com/caddyserver/caddy
+        - name: Helm Repo
+          url: https://gitlab.com/alexander-chernov/helm/caddy
+    apiVersion: v2
+    appVersion: 2.11.3
+    created: "2026-05-25T16:17:49.059229345Z"
+    description: 'The Caddy web server is an extensible, cross-platform, open-source
+      web server written in Go. '
+    digest: 4a7a3e9cb2a631cd941082aab131d46829c33460d44ad500701f597a93b69adf
+    icon: https://i.imgur.com/c5DPgf7.png
+    name: caddy
+    type: application
+    urls:
+    - https://github.com/serialt/helm-charts/releases/download/caddy-0.7.2/caddy-0.7.2.tgz
+    version: 0.7.2
   cloudbeaver:
   - apiVersion: v2
     appVersion: 23.3.5
@@ -121,4 +143,4 @@ entries:
     urls:
     - https://github.com/serialt/helm-charts/releases/download/vscode-0.0.1/vscode-0.0.1.tgz
     version: 0.0.1
-generated: "2026-05-07T09:50:36.683923591Z"
+generated: "2026-05-25T16:17:49.059248631Z"
